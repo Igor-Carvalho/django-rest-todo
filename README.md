@@ -6,7 +6,7 @@ As seguintes váriaveis de ambiente são requeridas. Ex:
 
     export EMAIL_URL=console://:@localhost:1025
     export SECRET_KEY='ztibsdwjar1v1pnp-6abc@r(1@!mfklak0$abg9^l^wo!7!sf1'
-    export DATABASE_URL=postgres://igor:123@localhost:5432/todo
+    export DATABASE_URL=sqlite:///$HOME/database.db
     export ADMINS=admin,admin@domain.com
 
 ## Instalação
