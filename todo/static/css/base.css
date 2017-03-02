@@ -1,0 +1,16 @@
+* {
+  font-size: 12.5px !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.todo-icon-button {
+  cursor: pointer;
+  font-size: 18px !important;
+}
+
+.completed {
+  text-decoration: line-through;
+}

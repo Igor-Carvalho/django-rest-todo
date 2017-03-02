@@ -1,0 +1,80 @@
+<div class="row" style="margin-top: 20px">
+  <div class="col-lg-8 col-lg-offset-2">
+    <div class="alert alert-success" ng-show="vm.createdMessage" style="padding: 10px">
+      <button type="button" class="close" aria-label="Close" ng-click="vm.createdMessage = false">
+        <i class="fa fa-remove"></i>
+      </button>
+      <strong>[[ vm.createdMessage ]]</strong>
+    </div>
+
+    <form name="newTaskForm" novalidate style="margin-bottom: 20px" cg-busy="vm.promise">
+      <div class="form-group">
+        <input type="text" class="form-control" name="title" ng-model="vm.task.title" placeholder="Título da tarefa" required/>
+        <span class="help-text text-danger" ng-show="vm.errors.title">[[ vm.errors.title[0] ]]</span>
+      </div>
+      <div class="clearfix">
+        <button ng-click="vm.createTask()" class="btn btn-default pull-right"
+            ng-disabled="newTaskForm.$invalid">
+          <i class="fa fa-plus"></i> <span>Adicionar tarefa</span>    
+        </button>
+      </div>
+    </form>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <h3 style="margin-top: 0">Total: [[ vm.tasks.count ]]</h3>
+      </div>
+
+      <div class="col-lg-3 col-lg-offset-6">
+        <form novalidate>
+          <div class="input-group">
+            <input type="text" class="form-control" ng-model="vm.pageSize">
+            <span class="input-group-btn">
+              <button class="btn btn-default" title="Clique para recarregar as tarefas" ng-click="vm.loader({'page_size': vm.pageSize})">
+                <i class="fa fa-refresh todo-icon-button"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <hr>
+
+    <table class="table table-bordered table-hover" ng-show="vm.tasks.results.length > 0" cg-busy="vm.tasksPromise">
+      <legend style="padding-bottom: 10px" class="clearfix">
+        <div class="pull-right">
+          <i class="fa fa-check todo-icon-button" ng-click="vm.loadCompletedTasks({page_size: vm.pageSize})"
+              title="Clique para obter apenas tarefas já completadas" style="margin-right: 5px"></i>
+          <i class="fa fa-rss todo-icon-button" ng-click="vm.loadTasks({page_size: vm.pageSize})"
+              title="Clique para recarregar as tarefas"></i>
+        </div>
+      </legend>
+      
+      <tbody>
+        <tr ng-repeat="task in vm.tasks.results track by $index" cg-busy="task.__promise">
+          <td>[[ task.id ]]</td>
+          <td ng-class="{'completed': task.completed}">
+            <span ng-show="!task.__showInput">[[ task.title ]]</span>
+            <input type="text" class="form-control" ng-model="task.title" ng-show="task.__showInput"
+                ng-keypress="vm.updateTaskInput($event, task)">
+          </td>
+          <td>
+            <input type="checkbox" ng-model="task.completed" ng-change="vm.updateTask(task)">
+          </td>
+          <td>
+            <i class="fa fa-trash-o todo-icon-button" style="margin-right: 5px" ng-click="vm.deleteTask(task)"
+                title="Clique para deletar a tarefa &quot;[[ task.title ]]&quot;"></i>
+
+            <i class="fa fa-edit todo-icon-button" style="position: relative;top:1px;" ng-click="task.__showInput = !task.__showInput"
+                title="Clique para [[ task.__showInput ? 'desfazer a edição' : 'editar a' ]] tarefa &quot;[[ task.title ]]&quot;"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <paginator data="vm.tasks" loader="vm.loader" page-size="vm.pageSize" ng-if="vm.tasks.$resolved"></paginator>
+  </div>
+</div>

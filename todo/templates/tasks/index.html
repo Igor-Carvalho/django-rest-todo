@@ -1,0 +1,43 @@
+<!doctype html>{% load static %}
+<html lang="en" ng-app="todo" ng-strict-di>
+<head>
+  <meta charset="utf-8">
+  <title>Tarefas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-busy/4.1.4/angular-busy.min.css">
+  
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-busy/4.1.4/angular-busy.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.tpls.min.js"></script>
+
+  <script src="{% static 'app/app.module.js' %}"></script>
+  <script src="{% static 'app/app.config.js' %}"></script>
+  <script src="{% static 'app/tasks/tasks.services.js' %}"></script>
+  <script src="{% static 'app/tasks/componentes/paginator.js' %}"></script>
+  <script src="{% static 'app/tasks/componentes/tasks.js' %}"></script>
+
+  <script>
+    var app = angular.module('todo');
+    app.value('cgBusyDefaults', {
+      templateUrl: '{% static "templates/cgBusy.html" %}',
+      minDuration: 300,
+      message: 'Aguarde...'
+    });
+
+    app.constant('paginatorTemplate', '{% static "app/tasks/componentes/paginator.html" %}');
+    app.constant('tasksTemplate', '{% static "app/tasks/componentes/tasks.html" %}');
+  </script>
+</head>
+<body>
+  <div class="container">
+    <tasks></tasks>
+  </div>
+</body>
+</html>
