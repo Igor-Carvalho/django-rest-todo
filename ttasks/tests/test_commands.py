@@ -15,8 +15,6 @@ class CommandTest(test.TestCase):
         factories.TaskFactory.create_batch(20)
         self.assertEqual(models.Task.objects.count(), 20)
 
-        # o comando é executado e a saída é redirecionada.
+        # o comando é executado e as tarefas são removidas com sucesso.
         management.call_command('wipe_tasks')
-
-        # as tarefas são removidas com sucesso.
         self.assertEqual(models.Task.objects.count(), 0)
