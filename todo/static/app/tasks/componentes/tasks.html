@@ -48,11 +48,20 @@
         <div class="pull-right">
           <i class="fa fa-check todo-icon-button" ng-click="vm.loadCompletedTasks({page_size: vm.pageSize})"
               title="Clique para obter apenas tarefas já completadas" style="margin-right: 5px"></i>
-          <i class="fa fa-rss todo-icon-button" ng-click="vm.loadTasks({page_size: vm.pageSize})"
+          <i class="fa fa-refresh todo-icon-button" ng-click="vm.loadTasks({page_size: vm.pageSize})"
               title="Clique para recarregar as tarefas"></i>
         </div>
       </legend>
       
+      <div class="alert alert-info" ng-show="vm.updateTaskError">
+        <button type="button" class="close" ng-click="vm.updateTaskError=null">
+          <i class="fa fa-remove"></i>
+        </button>
+
+        <span class="badge" style="padding: 5px">Tarefa #[[ vm.updateTaskError.task.id ]]</span>
+        <span class="badge" style="padding: 5px">Título da Tarefa: [[ vm.updateTaskError.errors.title[0] ]]</span>
+      </div>
+
       <tbody>
         <tr ng-repeat="task in vm.tasks.results track by $index" cg-busy="task.__promise">
           <td>[[ task.id ]]</td>

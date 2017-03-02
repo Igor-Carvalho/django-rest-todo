@@ -61,6 +61,7 @@
       }
 
       function updateTask(task) {
+        self.updateTaskError = null;
         task.__promise = task.$update(success, error);
 
         function success(task) {
@@ -68,13 +69,12 @@
         }
 
         function error(response) {
-          var messages = [];
-          angular.forEach(response.data, function (value, key) {
-            messages.push(value[0]);
-          });
-
+          self.updateTaskError = {
+            task: task,
+            errors: response.data
+          };
           toastr.error('Erro ao atualizar tarefa');
-          task.$get();
+          return task.$get();
         }
       }
 
