@@ -1,6 +1,9 @@
 # Rest TODO List
 Um projeto relativamente simples, integrando Django Rest Framework e AngularJS 1.6.
 
+## Documentação da API
+[https://django-rest-todo.herokuapp.com/docs/](https://django-rest-todo.herokuapp.com/docs/ "TODO docs")
+
 ## Configuração
 As seguintes váriaveis de ambiente são requeridas. Ex:
 
